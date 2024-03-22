@@ -14,7 +14,7 @@ app.options("*", cors());
 //middleware
 app.use(express.json());
 app.use(morgan('tiny'));
-app.use(authJwt());
+//app.use(authJwt());
 app.use(errorHandler);
 app.use("/public/uploads", express.static(__dirname + "/public/uploads"));
 
@@ -24,13 +24,15 @@ const categoriesRoutes = require("./routes/categories");
 const productsRoutes = require("./routes/products");
 const usersRoutes = require("./routes/users");
 const ordersRoutes = require("./routes/orders");
+const brandsRoutes = require("./routes/brands");
 
 const api = process.env.API_URL;
-
+console.log(api);
 app.use(`${api}/categories`, categoriesRoutes);
 app.use(`${api}/products`, productsRoutes);
 app.use(`${api}/users`, usersRoutes);
 app.use(`${api}/orders`, ordersRoutes);
+app.use(`${api}/brands`, brandsRoutes);
 
 //Database
 mongoose
