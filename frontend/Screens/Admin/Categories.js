@@ -19,6 +19,7 @@ const Item = (props) => {
     return (
         <View style={styles.item}>
             <Text>{props.item.name}</Text>
+            <Text>{props.item.image}</Text>
             <EasyButton
                 danger
                 medium
@@ -34,6 +35,8 @@ const Categories = (props) => {
 
     const [categories, setCategories] = useState([]);
     const [categoryName, setCategoryName] = useState();
+    const [image, setImage] = useState('');
+    const [mainImage, setMainImage] = useState();
     const [token, setToken] = useState();
 
     useEffect(() => {
@@ -56,7 +59,8 @@ const Categories = (props) => {
 
     const addCategory = () => {
         const category = {
-            name: categoryName
+            name: categoryName,
+            image: image
         };
 
         const config = {
@@ -104,13 +108,14 @@ const Categories = (props) => {
                 <View>
                     <Text>Add Category</Text>
                 </View>
-                <View style={{ width: width / 2.5 }}>
+                <View style={{ width: width / 4.5 }}>
                     <TextInput
                         value={categoryName}
                         style={styles.input}
                         onChangeText={(text) => setCategoryName(text)}
                     />
                 </View>
+                
                 <View>
                     <EasyButton
                         medium
