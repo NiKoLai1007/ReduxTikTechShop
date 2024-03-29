@@ -54,24 +54,23 @@ const UserProfile = (props) => {
     <Container style={styles.container}>
       <ScrollView contentContainerStyle={styles.subContainer}>
         {userProfile && userProfile.image ? (
-          <Image
-            source={{ uri: userProfile.image }}
-            style={styles.profileImage}
-          />
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+            <Image
+              source={{ uri: userProfile.image }}
+              style={styles.profileImage}
+            />
+            <Text style={{ fontSize: 30, marginLeft: 10 }}>
+              {userProfile.name}
+            </Text>
+          </View>
         ) : null}
-        <Text style={{ fontSize: 30 }}>
-          {userProfile ? userProfile.name : ""}
-        </Text>
         <View style={{ marginTop: 20 }}>
-        <Button title={"Profile"} onPress={() => navigation.navigate('UserProfile')} />
-          {/* <Text style={{ margin: 10 }}>
-            Email: {userProfile ? userProfile.email : ""}
-          </Text>
-          <Text style={{ margin: 10 }}>
-            Phone: {userProfile ? userProfile.phone : ""}
-          </Text> */}
+          <Button title={"Profile"} onPress={() => navigation.navigate('UserProfile')} />
         </View>
-        <View style={{ marginTop: 40 }}>
+        <View style={{ marginTop: 20 }}>
+          <Button title= "Update" onPress= {() => navigation.navigate('UserUpdate')} />
+        </View>
+        <View style={{ marginTop: 80 }}>
           <Button title={"Sign Out"} onPress={() => [
             AsyncStorage.removeItem("jwt"),
             logoutUser(context.dispatch)

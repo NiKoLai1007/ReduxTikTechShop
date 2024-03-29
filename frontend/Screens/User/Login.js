@@ -18,7 +18,7 @@ const Login = (props) => {
   const [error, setError] = useState('')
   useEffect(() => {
     if (context.stateUser.isAuthenticated === true) {
-      navigation.navigate("User",{screen: "User Profile"})
+      navigation.navigate("User Profile")
     }
   }, [context.stateUser.isAuthenticated])
   const handleSubmit = () => {
@@ -78,6 +78,14 @@ const Login = (props) => {
           onPress={() => navigation.navigate("Register")}
         >
           <Text style={{ color: "white" }}>Register</Text>
+        </EasyButton>
+      </View>
+      <View style={[{ marginTop: 20 }, styles.buttonGroup]}>
+      <EasyButton large
+          secondary
+          onPress={() => navigation.navigate("Google")}>
+          <Text style={{ color: "white" }}>Sign in with Google</Text>
+
         </EasyButton>
       </View>
     </FormContainer>

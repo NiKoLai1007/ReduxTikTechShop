@@ -1,9 +1,10 @@
-const { User } = require('../models/user');
+const  User  = require('../models/user');
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const { isAuthenticated } = require('../middlewares/auth');
 
 const FILE_TYPE_MAP = {
     'image/png': 'png',
@@ -39,8 +40,8 @@ router.get(`/`, async (req, res) => {
     }
     res.send(userList);
 })
-router.get('/:id', async (req, res) => {
-    const user = await User.findById(req.params.id).select('-passwordHash');
+router.get('/:id',isAuthenticated, async (req, res) => {
+    const user = await User.findById(req.user._id).select('-passwordHash');
 
     if (!user) {
         res.status(500).json({ message: 'The user with the given ID was not found.' })
@@ -178,10 +179,19 @@ router.get(`/get/count`, async (req, res) => {
     const userCount = await User.countDocuments((count) => count)
 
     if (!userCount) {
-        res.status(500).json({ success: false })
+        req.status(500).json({ success: false })
     }
     res.send({
         userCount: userCount
     });
+})
+
+router.get(`/profile/:id`, isAuthenticated, async (req, res) => {
+    const user = await User.findById(req.user._id);
+console.log(user)
+    if (!user) {
+        req.status(500).json({ success: false })
+    }
+    res.status(200).send(user);
 })
 module.exports = router;
