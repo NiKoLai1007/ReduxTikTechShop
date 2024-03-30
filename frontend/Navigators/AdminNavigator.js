@@ -6,6 +6,7 @@ import Products from "../Screens/Admin/Products"
 import ProductForm from "../Screens/Admin/ProductForm"
 import Categories from "../Screens/Admin/Categories"
 import Brands from "../Screens/Admin/Brands/Brands"
+import UserCharts from "../Screens/Admin/Charts/UserCharts"
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,7 @@ const AdminNavigator= () => {
             <Stack.Screen name="Brands" component={Brands} />
             <Stack.Screen name="Orders" component={Orders} />
             <Stack.Screen name="ProductForm" component={ProductForm} />
+            <Stack.Screen name="UserCharts" component={UserCharts} />
         </Stack.Navigator>
     )
 }

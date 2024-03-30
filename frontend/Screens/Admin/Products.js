@@ -7,7 +7,7 @@ import {
     StyleSheet,
     Dimensions,
     RefreshControl,
-
+    ScrollView
 } from "react-native";
 import { Input, VStack, Heading, Box } from "native-base"
 import Icon from "react-native-vector-icons/FontAwesome"
@@ -21,14 +21,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 var { height, width } = Dimensions.get("window")
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
 import { useNavigation } from "@react-navigation/native"
-const Products = (props) => {
 
+const Products = (props) => {
     const [productList, setProductList] = useState([]);
     const [productFilter, setProductFilter] = useState([]);
     const [loading, setLoading] = useState(true);
     const [token, setToken] = useState();
     const navigation = useNavigation()
     const [refreshing, setRefreshing] = useState(false);
+
     const ListHeader = () => {
         return (
             <View
@@ -51,6 +52,7 @@ const Products = (props) => {
             </View>
         )
     }
+
     const searchProduct = (text) => {
         if (text === "") {
             setProductFilter(productList)
@@ -88,6 +90,7 @@ const Products = (props) => {
             setRefreshing(false);
         }, 2000);
     }, []);
+
     useFocusEffect(
         useCallback(
             () => {
@@ -115,46 +118,56 @@ const Products = (props) => {
             [],
         )
     )
+
     return (
         <Box flex={1}>
-            <View style={styles.buttonContainer}>
-                <EasyButton
-                    secondary
-                    medium
-                    onPress={() => navigation.navigate("Orders")}
-                >
-                    <Icon name="shopping-bag" size={18} color="white" />
-                    <Text style={styles.buttonText}>Orders</Text>
-                </EasyButton>
-                <EasyButton
-                    secondary
-                    medium
-                    onPress={() => navigation.navigate("ProductForm")}
-                >
-                    <Icon name="plus" size={18} color="white" />
-                    <Text style={styles.buttonText}>Products</Text>
-                </EasyButton>
-                <EasyButton
-                    secondary
-                    medium
-                    onPress={() => navigation.navigate("Categories")}
-                >
-                    <Icon name="plus" size={18} color="white" />
-                    <Text style={styles.buttonText}>Categories</Text>
-                </EasyButton>
-                <EasyButton
-                    secondary
-                    medium
-                    onPress={() => navigation.navigate("Brands")}
-                >
-                    <Icon name="plus" size={18} color="white" />
-                    <Text style={styles.buttonText}>Brands</Text>
-                </EasyButton>
-            </View>
+            <ScrollView horizontal={true}>
+                <View style={styles.buttonContainer}>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("Orders")}
+                    >
+                        <Icon name="shopping-bag" size={18} color="white" />
+                        <Text style={styles.buttonText}>Orders</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("ProductForm")}
+                    >
+                        <Icon name="plus" size={18} color="white" />
+                        <Text style={styles.buttonText}>Products</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("Categories")}
+                    >
+                        <Icon name="plus" size={18} color="white" />
+                        <Text style={styles.buttonText}>Categories</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("Brands")}
+                    >
+                        <Icon name="plus" size={18} color="white" />
+                        <Text style={styles.buttonText}>Brands</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("UserCharts")}
+                    >
+                        <Icon name="plus" size={18} color="white" />
+                        <Text style={styles.buttonText}>Charts</Text>
+                    </EasyButton>
+                </View>
+            </ScrollView>
             <Searchbar width="80%"
                 placeholder="Search"
                 onChangeText={(text) => searchProduct(text)}
-            //   value={searchQuery}
             />
             {loading ? (
                 <View style={styles.spinner}>
