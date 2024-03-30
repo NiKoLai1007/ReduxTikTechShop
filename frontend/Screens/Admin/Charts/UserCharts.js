@@ -17,7 +17,7 @@ import {
     RefreshControl,
     ScrollView
 } from "react-native";
-//import ProductChart from "../Charts/ProductChart"
+import ProductChart from "../Charts/ProductChart"
 
   const chartConfig = {
     backgroundGradientFrom: "#1E2923",
@@ -34,6 +34,7 @@ const UserCharts = () => {
 
     
   return (
+    <ScrollView>
     <View>
         <Text>User Chart</Text>
         <LineChart
@@ -79,11 +80,14 @@ const UserCharts = () => {
             borderRadius: 16
             }}
         />
-        {/* <View>
+        <View>
             <ProductChart/>
-        </View> */}
+        </View>
+        <View>
+            <ProductChart/>
+        </View>
 </View>
-
+</ScrollView>
   )
 }
 
