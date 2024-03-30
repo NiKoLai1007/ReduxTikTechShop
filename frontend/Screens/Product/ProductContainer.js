@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { View, StyleSheet, FlatList, ActivityIndicator, Dimensions, ScrollViewComponent } from 'react-native'
+import { View, StyleSheet, Dimensions} from 'react-native'
 import { Center, VStack, Input, Heading, Text, Icon, NativeBaseProvider, extendTheme, ScrollView, } from "native-base";
 import { Ionicons, SmallCloseIcon } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -9,8 +9,6 @@ import Banner from "../../Shared/Banner";
 import CategoryFilter from "./CategoryFilter";
 import axios from 'axios'
 
-// const data = require('../../assets/data/products.json')
-// const productCategories = require('../../assets/data/categories.json')
 import baseURL from "../../assets/common/baseurl"
 
 var { width, height } = Dimensions.get("window")
@@ -22,38 +20,7 @@ const ProductContainer = () => {
     const [active, setActive] = useState([]);
     const [initialState, setInitialState] = useState([])
     const [productsCtg, setProductsCtg] = useState([])
-    // useEffect(() => {
-    //     setProducts(data);
-    //     setProductsFiltered(data);
-    //     setFocus(false);
-    //     setCategories(productCategories)
-    //     setActive(-1)
-    //     setInitialState(data)
-    //     setProductsCtg(data)
-    //     return () => {
-    //         setProducts([])
-    //         setProductsFiltered([]);
-    //         setFocus()
-    //         setCategories([])
-    //         setActive()
-    //         setInitialState();
-    //     }
-    // }, [])
-    // return (
-    //     <View>
-    //         <Text>Product Container</Text>
-    //         <View style={{ marginTop: 50 }} >
-    //             <FlatList
-    //                 // horizontal
-    //                 columnWrapperStyle={{justifyContent: 'space-between'}}
-    //                 numColumns={2}
-    //                 data={products}
-    //                 renderItem={({ item }) => <ProductList key={item._id} item={item}/>}
-    //                 keyExtractor={item => item.name}
-    //             />
-    //         </View>
-    //     </View>
-    // )
+
     useFocusEffect((
         useCallback(
             () => {
@@ -77,7 +44,6 @@ const ProductContainer = () => {
                 axios
                     .get(`${baseURL}categories`)
                     .then((res) => {
-                        
                         setCategories(res.data)
                     })
                     .catch((error) => {
@@ -174,7 +140,7 @@ const ProductContainer = () => {
                                     })}
                                 </View>
                                 ) : (
-                                    <View style={[styles.center, { height: height / 2}]}>
+                                    <View style={[styles.center, styles.noProductsContainer]}>
                                         <Text>No products found</Text>
                                     </View>
                                 )}
@@ -193,7 +159,7 @@ const styles = StyleSheet.create({
         backgroundColor: "gainsboro",
     },
     listContainer: {
-        height: height,
+        minHeight: height - 470, // Adjust the value here
         width: width,
         flex: 1,
         flexDirection: "row",
@@ -204,6 +170,9 @@ const styles = StyleSheet.create({
     center: {
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    noProductsContainer: {
+        minHeight: 300, // Adjust the value here
     }
 });
 
