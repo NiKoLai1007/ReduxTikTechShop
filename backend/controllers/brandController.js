@@ -1,4 +1,5 @@
 const { brand } = require ('../models/brand')
+const ImageFile = require ('../utils/imageUpload')
 
 
 exports.MyBrand = async (req, res) => {
@@ -7,7 +8,7 @@ console.log(brandList);
     if (!brandList) {
         res.status(500).json({ success: false })
     }
-    res.status(200).send(brandList);
+    res.status(200).json({brandList});
 }
 
 exports.BrandId = async (req, res) => {
@@ -20,18 +21,19 @@ exports.BrandId = async (req, res) => {
 }
 
 exports.CreateBrand = async (req, res) => {
+       console.log(req.body)
+        req.body.icon = await ImageFile.uploadMultiple({
+          imageFiles: req.files,
+          request: req,
+        });
+        
     console.log(req)
-    let brand = new Brand({
-        name: req.body.name,
-        icon: req.body.icon,
-        color: req.body.color
-    })
-    brand = await brand.save();
+    const brands = await brand.create(req.body);
 
-    if (!brand)
+    if (!brands)
         return res.status(400).send('the brand cannot be created!')
 
-    res.send(brand);
+    res.send(brands);
 }
 
 exports.GetBrand = async (req, res) => {

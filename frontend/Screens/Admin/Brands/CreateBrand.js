@@ -17,6 +17,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { setFormData, setImageUpload } from "../../../utils/formData";
 import { Center, List } from "native-base";
 import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
+
 
 
 
@@ -24,13 +26,30 @@ import { FontAwesome } from '@expo/vector-icons';
 var { width } = Dimensions.get("window")
 
 
-const CreateBrand = (navigation) => {
+const CreateBrand = () => {
 
-    const [brands, setBrands] = useState([]);
-    const [brandName, setBrandName] = useState();
-    const [brandLocation, setBrandLocation] = useState();
-    const [token, setToken] = useState();
-    const [images, setImages] = useState([]);
+  const navigation = useNavigation();
+  const [name, setName] = useState("");
+  const [color, setColor] = useState("");
+  const [icon, setIcon] = useState([]);
+
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) { console.log(result)
+      setIcon((prevImages) => [...prevImages, result.assets[0].uri]);
+    }
+  };
+
+  const removeImage = (index) => {
+    setIcon((prevImages) => prevImages.filter((_, i) => i !== index));
+  };
 
     useEffect(() => {
         AsyncStorage.getItem("jwt")
@@ -38,60 +57,34 @@ const CreateBrand = (navigation) => {
                 setToken(res);
             })
             .catch((error) => console.log(error));
-
-        axios
-            .get(`${baseURL}/brands`)
-            .then((res) => setBrands(res.data))
-            .catch((error) => alert("Error loading brands"))
-
-        return () => {
-            setBrands([]);
-            setToken(null);
-        }
     }, [])
 
-    const pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1
-        });
 
-        if (!result.cancelled) {
-            setImages(prevImages => [...prevImages, result.uri]);
-        }
-    }
-
-    const removeImage = (index) => {
-        setImages(prevImages => prevImages.filter((_, i) => i !== index));
-    };
 
     const addBrand = async () => {
         const brand = {
-            name: brandName,
-            location: brandLocation,
-            images: images // Pass array of image URIs
+            name: name,
+            color: color,
+            icon: icon // Pass array of image URIs
         };
-        brand.images = await setImageUpload(brand.images)
+        brand.icon = await setImageUpload(brand.icon)
 
         const formData = await setFormData(brand)
 
-
+        console.log(brand.icon)
         const config = {
             headers: {
                 "Content-Type": "multipart/form-data",
-                Authorization: `Bearer ${token}`,
+                // Authorization: `Bearer ${token}`,
             }
         };
 
         axios
-            .post(`${baseURL}/brands/create`, formData, config)
+            .post(`${baseURL}brands/create`, formData, config)
             .then((res) => {
-                setBrands([...brands, res.data]);
-                setBrandName("");
-                setBrandLocation("");
-                setImages([]); // Clear image array after submission
+                setName('');
+                setIcon([]);
+                setColor("");
                 navigation.navigate("Brands")
 
             })
@@ -99,34 +92,23 @@ const CreateBrand = (navigation) => {
 
     }
 
-    const renderItem = ({ item }) => (
-        <List style={styles.item} >
-            <Text>{item.name}</Text>
-            <Text>{item.location}</Text>
-        </List>
-    );
-
+    
     return (
         <View style={{ flex: 1 }}>
-            <FlatList
-                data={brands}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
-            />
             <View >
                 <Text style={{ marginLeft: 10}}>Name</Text>
                 <TextInput
-                    value={brandName}
+                    value={name}
                     style={styles.input}
-                    onChangeText={(text) => setBrandName(text)}
+                    onChangeText={(text) => setName(text)}
                     placeholder="Brand Name"
                 />
-                <Text style={{ marginLeft: 10}}>Location</Text>
+                <Text style={{ marginLeft: 10}}>Color</Text>
                 <TextInput
-                    value={brandLocation}
+                    value={color}
                     style={styles.input}
-                    onChangeText={(text) => setBrandLocation(text)}
-                    placeholder="Location"
+                    onChangeText={(text) => setColor(text)}
+                    placeholder="Color"
 
                 />
                 <EasyButton
@@ -139,7 +121,7 @@ const CreateBrand = (navigation) => {
                     <Text style={{ color: "white", fontWeight: "bold" }}>Pick Image</Text>
                 </EasyButton>
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 10 }}>
-                    {images.map((image, index) => (
+                    {icon.map((image, index) => (
                         <View key={index} style={{ flexDirection: 'row', margin: 7 }}>
                             <Image source={{ uri: image }} style={{ width: 100, height: 100, margin: 5 }} />
                             <TouchableOpacity onPress={() => removeImage(index)}>

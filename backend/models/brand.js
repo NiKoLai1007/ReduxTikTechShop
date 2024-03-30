@@ -5,9 +5,9 @@ const brandSchema = mongoose.Schema({
         type: String,
         required: true,
     },
-    icon: {
+    icon: [{
         type: String,
-    },
+    }],
     color: { 
         type: String,
     }

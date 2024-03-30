@@ -1,14 +1,15 @@
 const { brand } = require('../models/brand');
 const express = require('express');
+const upload = require('../utils/multer')
 const router = express.Router();
 
 const { MyBrand, BrandId, CreateBrand, GetBrand } = require ('../controllers/brandController');
 
-router.get(`/`, MyBrand);
+router.get(`/all/brands`, MyBrand);
 
 router.get('/:id', BrandId );
 
-router.post('/', CreateBrand);
+router.post('/create',upload.array('icon'), CreateBrand);
 
 router.put('/:id', GetBrand);
 

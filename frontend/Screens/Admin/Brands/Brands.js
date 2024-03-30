@@ -14,6 +14,8 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { Center } from "native-base";
 // import { add } from "react-native-reanimated";
+import {useFocusEffect} from '@react-navigation/core'
+import { useCallback } from "react";
 
 var { width } = Dimensions.get("window")
 
@@ -52,23 +54,43 @@ const Brands = ({ navigation }) => {
     const [brandLocation, setBrandLocation] = useState();
     const [token, setToken] = useState();
 
-    useEffect(() => {
-        AsyncStorage.getItem("jwt")
-            .then((res) => {
-                setToken(res);
-            })
-            .catch((error) => console.log(error));
+    // useEffect(() => {
+    //     AsyncStorage.getItem("jwt")
+    //         .then((res) => {
+    //             setToken(res);
+    //         })
+    //         .catch((error) => console.log(error));
+
+    //     axios
+    //         .get(`${baseURL}/brands`)
+    //         .then((res) => {setBrands(res.data.brandList)
+    //             console.log(res.data.brandList)})
+    //         .catch((error) => alert("Error load brands"))
+
+    //     return () => {
+    //         setBrands();
+    //         setToken();
+    //     }
+    // }, [])
+
+    useFocusEffect(useCallback(()=>{
+        // AsyncStorage.getItem("jwt")
+        //     .then((res) => {
+        //         setToken(res);
+        //     })
+        //     .catch((error) => console.log(error));
 
         axios
-            .get(`${baseURL}/brands`)
-            .then((res) => setBrands(res.data))
+            .get(`${baseURL}brands/all/brands`)
+            .then((res) => {setBrands(res.data.brandList)
+                console.log(res.data.brandList)})
             .catch((error) => alert("Error load brands"))
 
         return () => {
             setBrands();
-            setToken();
+            // setToken();
         }
-    }, [])
+    },[])) 
 
     // const addBrand = () => {
     //     const brand = {
@@ -144,7 +166,7 @@ const Brands = ({ navigation }) => {
                 </EasyButton> */}
                 
                 
-                <Button title="ADD" onPress={() => navigation.navigate('CreateBrand')} />
+                <Button title="ADD" onPress={() => navigation.navigate('CreateBrands')} />
               
                 
             </View>
