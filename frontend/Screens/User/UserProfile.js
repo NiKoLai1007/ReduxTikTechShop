@@ -65,7 +65,7 @@ const UserProfile = (props) => {
           </View>
         ) : null}
         <View style={{ marginTop: 20 }}>
-          <Button title={"Profile"} onPress={() => navigation.navigate('UserProfile')} />
+          <Button title={"Profile"} onPress={() => navigation.navigate('ProfileInfo')} />
         </View>
         <View style={{ marginTop: 20 }}>
           <Button title= "Update" onPress= {() => navigation.navigate('UserUpdate')} />
