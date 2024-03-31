@@ -10,7 +10,8 @@ import baseURL from "../../../assets/common/baseurl";
 import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux'
 import AsyncStorage from "@react-native-async-storage/async-storage"
-
+import { useFocusEffect } from '@react-navigation/native';
+import { useCallback } from 'react';
 
 var { width, height } = Dimensions.get("window");
 
@@ -22,14 +23,25 @@ const Confirm = (props) => {
     const dispatch = useDispatch()
     let navigation = useNavigation()
 
+
+   
+    
+    const getToken = async () => {
+        const tok = await AsyncStorage.getItem("jwt");
+        setToken(tok);
+      };
+    
+      useFocusEffect(
+        useCallback(() => {
+            getToken();
+        }, [])
+      );
+
+    
     const confirmOrder = () => {
         const order = finalOrder.order.order;
 
-        AsyncStorage.getItem("jwt")
-            .then((res) => {
-                setToken(res)
-            })
-            .catch((error) => console.log(error))
+        
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`
@@ -45,6 +57,7 @@ const Confirm = (props) => {
                         text1: "Order Completed",
                         text2: "",
                     });
+                    //console.log('token')
                     // dispatch(actions.clearCart())
                     // props.navigation.navigate("Cart")
 

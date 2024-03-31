@@ -2,6 +2,43 @@ const { Order } = require('../models/order');
 const express = require('express');
 const { OrderItem } = require('../models/order-item');
 const router = express.Router();
+// const user = require('../models/user');
+const nodemailer = require("nodemailer");
+const { isAuthenticated } = require('../middlewares/auth');
+
+
+
+const sendOrderNotification = async (email, order) => {
+    //create a nodemailer transport
+
+    const transporter = nodemailer.createTransport({
+        //configure the email service
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+            user: "acd56bdea70288",
+            pass: "fe5d00b3474c67",
+        },
+    });
+
+    //compose the email message
+    const mailOptions = {
+        from: 'shan.palima@tup.edu.ph',
+        to: email,
+        subject: "Order Notification",
+    };
+    // const productText = products.map(product => `- ${product.name} x${product.quantity}`).join('\n');
+
+    mailOptions.text = `Thank you for ordering from TickTech! \n\nThis is the list of items you've ordered: Payment Method: ${order.paymentMethod}\nOrder Total:₱ ${order.totalPrice}`;
+
+    //send the email
+    try {
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        console.log("Error sending verification email", error);
+    }
+};
+
 
 router.get(`/`, async (req, res) => {
     const orderList = await Order.find().populate('user', 'name').sort({ 'dateOrdered': -1 });
@@ -30,7 +67,7 @@ router.get(`/:id`, async (req, res) => {
     res.send(order);
 })
 
-router.post('/', async (req, res) => {
+router.post('/', isAuthenticated, async (req, res) => {
     const orderItemsIds = Promise.all(req.body.orderItems.map(async (orderItem) => {
         console.log(req.body)
         // const orderItemsIds = req.body.orderItems.map(async (orderItem) => {
@@ -67,7 +104,12 @@ router.post('/', async (req, res) => {
             // totalPrice: totalPrice,
             user: req.body.user,
         })
+        console.log(req.user);
         order = await order.save();
+        if (req.user && req.user.email) {
+            sendOrderNotification(req.user.email, order);
+          }
+          
 
         if (!order)
             return res.status(400).send('the order cannot be created!')
