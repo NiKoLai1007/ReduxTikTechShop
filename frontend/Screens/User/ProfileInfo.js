@@ -93,7 +93,8 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     text: {
-        margin: 10,
+        margin: 5,
+        fontSize: 20,
     },
 });
 

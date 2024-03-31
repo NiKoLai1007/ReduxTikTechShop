@@ -24,7 +24,7 @@ const Item = (props) => {
         <View style={styles.item}>
             <View>
                 <Text> Name: {props.item.name}</Text>
-                <Text> Location: {props.item.location}</Text>
+                <Text> Color: {props.item.color}</Text>
             </View>
             <View style={{ flexDirection: 'row' }}>
                 <EasyButton
