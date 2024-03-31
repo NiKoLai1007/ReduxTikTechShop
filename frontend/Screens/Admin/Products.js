@@ -160,7 +160,7 @@ const Products = (props) => {
                         medium
                         onPress={() => navigation.navigate("UserCharts")}
                     >
-                        <Icon name="plus" size={18} color="white" />
+                        <Icon name="bar-chart" size={18} color="white" />
                         <Text style={styles.buttonText}>Charts</Text>
                     </EasyButton>
                 </View>
