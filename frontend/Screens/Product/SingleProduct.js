@@ -5,6 +5,7 @@ import TrafficLight from '../../Shared/StyledComponents/TrafficLight'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../Redux/Actions/cartActions';
 import { useNavigation } from "@react-navigation/native";
+import ReviewList from "../Reviews/ReviewList";
 
 const SingleProduct = ({ route }) => {
     const  navigation = useNavigation();
@@ -36,9 +37,9 @@ const SingleProduct = ({ route }) => {
         // Optionally, show a toast or some other notification here
     };
 
-    const handleReviews = () => {
-        navigation.navigate('ReviewList');
-    };
+    // const handleReviews = () => {
+    //     navigation.navigate('ReviewList');
+    // };
 
     return (
         <Center flexGrow={1}>
@@ -68,9 +69,10 @@ const SingleProduct = ({ route }) => {
                 <TouchableOpacity style={styles.addButtonSmall} onPress={handleAddToCart}>
                     <Text style={styles.addButtonText}>Add to Cart</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.addButtonSmall} onPress={handleReviews}>
+                {/* <TouchableOpacity style={styles.addButtonSmall} onPress={handleReviews}>
                     <Text style={styles.addButtonText}>Reviews</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+                <ReviewList />
             </ScrollView>
         </Center >
     )
