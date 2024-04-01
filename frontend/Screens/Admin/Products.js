@@ -120,7 +120,7 @@ const Products = (props) => {
     )
 
     return (
-        <Box flex={1}>
+        <Box>
             <ScrollView horizontal={true}>
                 <View style={styles.buttonContainer}>
                     <EasyButton
@@ -154,6 +154,14 @@ const Products = (props) => {
                     >
                         <Icon name="plus" size={18} color="white" />
                         <Text style={styles.buttonText}>Brands</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
+                        onPress={() => navigation.navigate("Users")}
+                    >
+                        <Icon name="user" size={18} color="white" />
+                        <Text style={styles.buttonText}>Users</Text>
                     </EasyButton>
                     <EasyButton
                         secondary

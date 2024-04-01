@@ -1,0 +1,33 @@
+{
+    "expo": {
+      "name": "scplay",
+      "slug": "scplay",
+      "version": "1.0.0",
+      "orientation": "default",
+      "icon": "./assets/loginpic.png",
+      "userInterfaceStyle": "light",
+      "splash": {
+        "image": "./assets/loginpic.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#ffffff"
+      },
+      "assetBundlePatterns": [
+        "*/"
+      ],
+      "ios": {
+        "supportsTablet": true
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/adaptive-icon.png",
+          "backgroundColor": "#ffffff"
+        }
+      },
+      "web": {
+        "favicon": "./assets/favicon.png"
+      },
+      "plugins": [
+        "expo-build-properties"
+      ]
+    }
+  }
