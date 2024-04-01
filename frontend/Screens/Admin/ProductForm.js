@@ -99,6 +99,7 @@ const ProductForm = (props) => {
         }
     }
     
+    
 
     const addProduct = () => {
         if (
@@ -255,7 +256,7 @@ const ProductForm = (props) => {
             />
             <Box>
                 <Select
-                    minWidth="90%" placeholder="Select your Category"
+                    minWidth="90%" placeholder="Select Category"
                     selectedValue={pickerValue}
                     onValueChange={(e) => [setPickerValue(e), setCategory(e)]}
                 >
@@ -269,6 +270,20 @@ const ProductForm = (props) => {
                     })}
 
                 </Select>
+                {/* <Select
+                    minWidth="90%" placeholder="Select Brand"
+                    selectedValue={pickerValue}
+                    onValueChange={(e) => [setPickerValue(e), setBrand(e)]}
+                >
+                    {brand.map((b, index) => {
+                        return (
+                            <Select.Item
+                                key={b.id}
+                                label={b.name}
+                                value={b.id} />
+                        )
+                    })}
+                </Select> */}
             </Box>
 
             {error ? <Error message={error} /> : null}

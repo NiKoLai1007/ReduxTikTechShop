@@ -52,3 +52,51 @@ exports.GetBrand = async (req, res) => {
 
     res.send(brands);
 }
+
+exports.UpdateBrand = async (req, res) => {
+    try {
+      if (req.files?.length > 0) {
+        req.body.images = await ImageFile.uploadMultiple({
+          imageFiles: req.files,
+          request: req,
+        });
+      }
+  
+      const brands = await Brand.findByIdAndUpdate(req.params.id, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      res
+        .status(201)
+        .json({ success: true, message: "Brand is Updated", brands: brands });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+
+  exports.deleteBrand = async (req, res) => {
+    try {
+      await brand.findByIdAndDelete(req.params.id);
+      res.status(200).json({
+        success: true,
+        message: "Brand Deleted",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+//   exports.deleteBrand = async (req, res) => {
+//     Brand.findByIdAndRemove(req.params.id).then(brand => {
+//         if (brand) {
+//             return res.status(200).json({ success: true, message: 'Brand is deleted!' })
+//         } else {
+//             return res.status(404).json({ success: false, message: "Brand not found!" })
+//         }
+//     }).catch(err => {
+//         return res.status(500).json({ success: false, error: err })
+//     })
+// }
+
+  
