@@ -158,6 +158,14 @@ const Products = (props) => {
                     <EasyButton
                         secondary
                         medium
+                        onPress={() => navigation.navigate("Users")}
+                    >
+                        <Icon name="user" size={18} color="white" />
+                        <Text style={styles.buttonText}>Users</Text>
+                    </EasyButton>
+                    <EasyButton
+                        secondary
+                        medium
                         onPress={() => navigation.navigate("UserCharts")}
                     >
                         <Icon name="bar-chart" size={18} color="white" />
