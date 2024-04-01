@@ -47,7 +47,7 @@ const ProductContainer = () => {
                         setCategories(res.data)
                     })
                     .catch((error) => {
-                        console.log('Api categoriesv call error')
+                        console.log('Api categories call error')
                     })
     
                 return () => {

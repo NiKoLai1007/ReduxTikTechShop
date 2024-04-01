@@ -9,6 +9,7 @@ import Brands from "../Screens/Admin/Brands/Brands"
 import UserCharts from "../Screens/Admin/Charts/UserCharts"
 import CreateBrand from "../Screens/Admin/Brands/CreateBrand"
 import UpdateBrand from "../Screens/Admin/Brands/UpdateBrand"
+import Users from "../Screens/Admin/Users"
 
 const Stack = createStackNavigator();
 
@@ -30,6 +31,7 @@ const AdminNavigator= () => {
             <Stack.Screen name="Orders" component={Orders} />
             <Stack.Screen name="ProductForm" component={ProductForm} />
             <Stack.Screen name="UserCharts" component={UserCharts} />
+            <Stack.Screen name="Users" component={Users} />
         </Stack.Navigator>
     )
 }
