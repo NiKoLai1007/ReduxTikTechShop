@@ -21,6 +21,7 @@ var { width } = Dimensions.get("window")
 
 const Item = (props) => {
     return (
+        
         <View style={styles.item}>
             <View>
                 <Text> Name: {props.item.name}</Text>
@@ -30,7 +31,7 @@ const Item = (props) => {
                 <EasyButton
                     primary
                     medium
-                    onPress={() => props.navigation.navigate('UpdateBrands', { brandId: props.item._id })}
+                    onPress={() => props.navigation.navigate('UpdateBrand', { brandId: props.item._id })}
                     style={{ marginRight: 10 }}
                 >
                     <Text style={{ color: "white", fontWeight: "bold" }}>Update</Text>
@@ -42,13 +43,14 @@ const Item = (props) => {
                 >
                     <Text style={{ color: "white", fontWeight: "bold" }}>Delete</Text>
                 </EasyButton>
+                
             </View>
         </View>
     )
 }
 
 const Brands = ({ navigation }) => {
-
+    
     const [brands, setBrands] = useState([]);
     const [brandName, setBrandName] = useState();
     const [brandLocation, setBrandLocation] = useState();
@@ -114,6 +116,7 @@ const Brands = ({ navigation }) => {
     // }
 
     const deleteBrand = (id) => {
+        
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -121,18 +124,18 @@ const Brands = ({ navigation }) => {
         };
 
         axios
-            .delete(`${baseURL}/brands/${id}`, config)
+            .delete(`${baseURL}brands/delete/${id}`, config)
             .then((res) => {
                 const newBrands = brands.filter((item) => item.id !== id);
                 setBrands(newBrands);
             })
-            .catch((error) => alert("Error delete brands"));
+            .catch((error) => alert(error));
     }
-
+    
     return (
         <View style={{ position: "relative", height: "100%" }}>
             <View style={{ marginBottom: 60 }}>
-                <FlatList
+            <FlatList
                     data={brands}
                     renderItem={({ item, index }) => (
                         <Item item={item} index={index} delete={deleteBrand} navigation={navigation} />
@@ -140,6 +143,15 @@ const Brands = ({ navigation }) => {
                     keyExtractor={(item) => item.id}
                 />
             </View>
+            {/* <View style={{ marginBottom: 60 }}>
+                <FlatList
+                    data={brands}
+                    renderItem={({ item, index }) => (
+                        <Item item={item} index={index} delete={deleteBrand} />
+                    )}
+                    keyExtractor={(item) => item.id}
+                />
+            </View> */}
             
             <View style={styles.bottomBar}>
 
