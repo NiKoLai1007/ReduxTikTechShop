@@ -155,6 +155,16 @@ router.delete('/:id', (req, res)=>{
 //         productCount: productCount
 //     });
 // })
+// router.get(`/get/count`, async (req, res) =>{
+//     const productCount = await Product.countDocuments((count) => count)
+
+//     if(!productCount) {
+//         res.status(500).json({success: false})
+//     } 
+//     res.send({
+//         productCount: productCount
+//     });
+// })
 router.get(`/get/count`, async (req, res) =>{
     try {
         const productCount = await Product.countDocuments();
@@ -248,4 +258,3 @@ router.put('/gallery-images/:id', uploadOptions.array('images', 10), async (req,
 });
 
 module.exports=router;
-
