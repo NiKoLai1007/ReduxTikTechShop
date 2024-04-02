@@ -10,14 +10,16 @@ const Banner = () => {
     useEffect(() => {
         setBannerData([
             "https://i.postimg.cc/rpmN8QNr/first.jpg",
-            "https://i.postimg.cc/GhxFGZMD/second.jpg",
             "https://i.postimg.cc/mD7zRHJ9/third.jpg",
+            "https://i.postimg.cc/GhxFGZMD/second.jpg",
+           
         ]);
-
+    
         return () => {
             setBannerData([]);
         };
     }, []);
+       
 
     return (
         <ScrollView>

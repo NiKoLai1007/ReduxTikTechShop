@@ -120,7 +120,7 @@ const Products = (props) => {
     )
 
     return (
-        <Box flex={1}>
+        <Box>
             <ScrollView horizontal={true}>
                 <View style={styles.buttonContainer}>
                     <EasyButton
