@@ -4,10 +4,10 @@
       "slug": "scplay",
       "version": "1.0.0",
       "orientation": "default",
-      "icon": "./assets/loginpic.png",
+      "icon": "./assets/logo.png",
       "userInterfaceStyle": "light",
       "splash": {
-        "image": "./assets/loginpic.png",
+        "image": "./assets/logo.png",
         "resizeMode": "contain",
         "backgroundColor": "#ffffff"
       },

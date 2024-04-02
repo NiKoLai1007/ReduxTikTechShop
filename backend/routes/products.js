@@ -145,16 +145,70 @@ router.delete('/:id', (req, res)=>{
     })
 })
 
-router.get(`/get/count`, async (req, res) =>{
-    const productCount = await Product.countDocuments((count) => count)
+// router.get(`/get/count`, async (req, res) =>{
+//     const productCount = await Product.countDocuments((count) => count)
 
-    if(!productCount) {
-        res.status(500).json({success: false})
-    } 
-    res.send({
-        productCount: productCount
-    });
+//     if(!productCount) {
+//         res.status(500).json({success: false})
+//     } 
+//     res.send({
+//         productCount: productCount
+//     });
+// })
+router.get(`/get/count`, async (req, res) =>{
+    try {
+        const productCount = await Product.countDocuments();
+        if(productCount === null || productCount === undefined) {
+            return res.status(404).json({success: false, message: "Product count not found"});
+        } 
+        res.send({
+            productCount: productCount
+        });
+    } catch (error) {
+        console.error('Error fetching total product count:', error);
+        res.status(500).json({success: false, error: error.message});
+    }
 })
+
+
+router.get('/get/category', async (req, res) => {
+    try {
+        // Extract category IDs from the query parameters
+        const categoryIds = req.query.categories;
+
+        // If no category IDs provided, fetch all categories
+        if (!categoryIds) {
+            const allCategories = await Category.find();
+            return res.status(200).json({ success: true, categories: allCategories });
+        }
+
+        // Split the category IDs string into an array
+        const categoryIdArray = categoryIds.split(',');
+
+        // Fetch categories based on the provided IDs
+        const categories = await Category.find({ _id: { $in: categoryIdArray } });
+
+        // Check if any categories were found
+        if (!categories || categories.length === 0) {
+            return res.status(404).json({ success: false, message: 'Categories not found for the provided IDs' });
+        }
+
+        // Extract category names from the fetched categories
+        const categoryNames = categories.map(category => category.name);
+
+        // Send the category names in the response
+        res.status(200).json({ success: true, categories: categoryNames });
+    } catch (error) {
+        console.error('Error fetching categories by IDs:', error);
+        res.status(500).json({ success: false, error: error.message });
+    }
+});
+
+
+
+
+
+
 
 router.get(`/get/featured/:count`, async (req, res) =>{
     const count = req.params.count ? req.params.count : 0
@@ -194,3 +248,4 @@ router.put('/gallery-images/:id', uploadOptions.array('images', 10), async (req,
 });
 
 module.exports=router;
+
