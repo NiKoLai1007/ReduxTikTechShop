@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { MyBrand, BrandId, CreateBrand, UpdateBrand, GetBrand, deleteBrand} = require ('../controllers/brandController');
 
-// router.get(`/all/brands`, MyBrand);
+router.get(`/all/brands`, MyBrand);
 
 router.get(`/`, async (req, res) => {
     const brandlist = await brand.find();
@@ -25,7 +25,7 @@ router.get('/:id', async (req, res) => {
     res.status(200).send(Brand);
 })
 
-// router.get(`/brands`, MyBrand);
+router.get(`/brands`, MyBrand);
 
 router.get('/:id', BrandId);
 
