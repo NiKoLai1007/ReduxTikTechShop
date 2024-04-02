@@ -1,33 +1,33 @@
 {
-    "expo": {
-      "name": "scplay",
-      "slug": "scplay",
-      "version": "1.0.0",
-      "orientation": "default",
-      "icon": "./assets/logo.png",
-      "userInterfaceStyle": "light",
-      "splash": {
-        "image": "./assets/logo.png",
-        "resizeMode": "contain",
+  "expo": {
+    "name": "scplay",
+    "slug": "scplay",
+    "version": "1.0.0",
+    "orientation": "default",
+    "icon": "./assets/TikTech.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/TikTech.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "*/"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "assetBundlePatterns": [
-        "*/"
-      ],
-      "ios": {
-        "supportsTablet": true
-      },
-      "android": {
-        "adaptiveIcon": {
-          "foregroundImage": "./assets/adaptive-icon.png",
-          "backgroundColor": "#ffffff"
-        }
-      },
-      "web": {
-        "favicon": "./assets/favicon.png"
-      },
-      "plugins": [
-        "expo-build-properties"
-      ]
-    }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-build-properties"
+    ]
   }
+}

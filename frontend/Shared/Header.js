@@ -1,3 +1,7 @@
+Euman
+
+//shared/header
+
 import React from "react"
 import { StyleSheet, Image, SafeAreaView, View } from "react-native"
 
@@ -28,3 +32,5 @@ const styles = StyleSheet.create({
 })
 
 export default Header
+
+
