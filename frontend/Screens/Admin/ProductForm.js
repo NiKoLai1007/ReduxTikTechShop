@@ -27,10 +27,11 @@ const ProductForm = (props) => {
     // console.log(props.route.params)
     const [pickerValue, setPickerValue] = useState('');
     const [brand, setBrand] = useState('');
+    const [brands, setBrands] = useState([]);
     const [name, setName] = useState('');
     const [price, setPrice] = useState(0);
     const [description, setDescription] = useState('');
-    const [image, setImage] = useState('');
+    const [image, setImage] = useState([]);
     const [mainImage, setMainImage] = useState();
     const [category, setCategory] = useState('');
     const [categories, setCategories] = useState([]);
@@ -42,6 +43,7 @@ const ProductForm = (props) => {
     const [richDescription, setRichDescription] = useState();
     const [numReviews, setNumReviews] = useState(0);
     const [item, setItem] = useState(null);
+    // const [image, setImage] = useState([]);
 
     let navigation = useNavigation()
 
@@ -50,7 +52,8 @@ const ProductForm = (props) => {
             setItem(null);
         } else {
             setItem(props.route.params.item);
-            setBrand(props.route.params.item.brand);
+            setBrand(props.route.params.item.brand._id);
+            setPickerValue(props.route.params.item.brand.name);
             setName(props.route.params.item.name);
             setPrice(props.route.params.item.price.toString());
             setDescription(props.route.params.item.description);
@@ -69,6 +72,20 @@ const ProductForm = (props) => {
             .get(`${baseURL}categories`)
             .then((res) => setCategories(res.data))
             .catch((error) => alert("Error to load categories"));
+
+        // axios
+        //     .get(`${baseURL}brands`)
+        //     .then((res) => setBrands(res.data))
+        //     .catch((error) => alert("Error loading brands"));
+
+        axios
+            .get(`${baseURL}brands`)
+            .then((res) => setBrands(res.data))
+            .catch((error) => {
+                console.error("Error fetching brands:", error);
+                alert("Error loading brands");
+            });
+
         (async () => {
             if (Platform.OS !== "web") {
                 const {
@@ -80,7 +97,8 @@ const ProductForm = (props) => {
             }
         })();
         return () => {
-            setCategories([])
+            setCategories([]);
+            setBrands([]);
         }
     }, [])
 
@@ -115,9 +133,10 @@ const ProductForm = (props) => {
 
         let formData = new FormData();
         const newImageUri = "file:///" + image.split("file:/").join("");
+        const selectedBrand = brands.find(b => b.id === brand);
 
         formData.append("name", name);
-        formData.append("brand", brand);
+        formData.append("brand", selectedBrand.name);
         formData.append("price", price);
         formData.append("description", description);
         formData.append("category", category);
@@ -202,16 +221,16 @@ const ProductForm = (props) => {
                     <Icon style={{ color: "white" }} name="camera" />
                 </TouchableOpacity>
             </View>
-            <View style={styles.label}>
+            {/* <View style={styles.label}>
                 <Text style={{ textDecorationLine: "underline" }}>Brand</Text>
-            </View>
-            <Input
+            </View> */}
+            {/* <Input
                 placeholder="Brand"
                 name="brand"
                 id="brand"
                 value={brand}
                 onChangeText={(text) => setBrand(text)}
-            />
+            /> */}
             <View style={styles.label}>
                 <Text style={{ textDecorationLine: "underline" }}>Name</Text>
             </View>
@@ -255,6 +274,9 @@ const ProductForm = (props) => {
                 onChangeText={(text) => setDescription(text)}
             />
             <Box>
+            <View style={styles.label}>
+                <Text style={{ textDecorationLine: "underline" }}>Category</Text>
+            </View>
                 <Select
                     minWidth="90%" placeholder="Select Category"
                     selectedValue={pickerValue}
@@ -270,12 +292,15 @@ const ProductForm = (props) => {
                     })}
 
                 </Select>
+            <View style={styles.label}>
+                <Text style={{ textDecorationLine: "underline" }}>Brand</Text>
+            </View>
                 {/* <Select
                     minWidth="90%" placeholder="Select Brand"
                     selectedValue={pickerValue}
                     onValueChange={(e) => [setPickerValue(e), setBrand(e)]}
                 >
-                    {brand.map((b, index) => {
+                    {brands.map((b, index) => {
                         return (
                             <Select.Item
                                 key={b.id}
@@ -284,6 +309,26 @@ const ProductForm = (props) => {
                         )
                     })}
                 </Select> */}
+                <Select
+                    minWidth="90%"
+                    placeholder="Select Brand"
+                    selectedValue={pickerValue}
+                    onValueChange={(value) => {
+                        const selectedBrand = brands.find(b => b.id === value);
+                        setPickerValue(selectedBrand.name);
+                        setBrand(value);
+                    }}
+                >
+                    {brands.map((b, index) => {
+                        return (
+                            <Select.Item
+                                key={b.id}
+                                label={b.name}
+                                value={b.id}
+                            />
+                        )
+                    })}
+                </Select>
             </Box>
 
             {error ? <Error message={error} /> : null}

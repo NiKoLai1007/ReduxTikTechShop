@@ -7,17 +7,38 @@ const { MyBrand, BrandId, CreateBrand, UpdateBrand, GetBrand, deleteBrand} = req
 
 router.get(`/all/brands`, MyBrand);
 
-router.get('/:id', BrandId );
+router.get(`/`, async (req, res) => {
+    const brandlist = await brand.find();
+
+    if (!brandlist) {
+        res.status(500).json({ success: false })
+    }
+    res.status(200).send(brandlist);
+})
+
+router.get('/:id', async (req, res) => {
+    const Brand = await brand.findById(req.params.id);
+
+    if (!Brand) {
+        res.status(500).json({ message: 'The brand with the given ID was not found.' })
+    }
+    res.status(200).send(Brand);
+})
+
+router.get(`/brands`, MyBrand);
+
+router.get('/:id', BrandId);
 
 router.post('/create',upload.array('icon'), CreateBrand);
 
-router.put('/update/brands/:id',upload.array('images'), UpdateBrand);
+// router.put('/update/brands/:id',upload.array('images'), UpdateBrand);
 
 // router.delete('/delete/brands/:id', deleteBrand)
+router.put('/:id', upload.array('images'), UpdateBrand)
 
 router.delete('/delete/:id', deleteBrand);
 
-router.put('/:id', GetBrand);
+router.put('/', GetBrand);
 
 
 // router.delete('/:id', (req, res) => {
