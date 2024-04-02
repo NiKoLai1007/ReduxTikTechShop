@@ -63,14 +63,14 @@ const UpdateBrand = ({ route }) => {
     };
 
     axios
-      .put(`${baseurl}update/brands/${id}`, formData, config)
+      .put(`${baseurl}brands/update/${id}`, formData, config)
       .then((res) => {
         setName("");
         setColor("");
         setIcon([]);
         navigation.navigate("Brands");
       })
-      .catch((error) => console.log(error.response));
+      .catch((error) => alert(error));
   };
 
   useFocusEffect(

@@ -17,7 +17,7 @@ exports.BrandId = async (req, res) => {
     if (!brandList) {
         res.status(500).json({ message: 'The Brand with the given ID was not found.' })
     }
-    res.status(200).send(brands);
+    res.status(200).send(brand);
 }
 
 exports.CreateBrand = async (req, res) => {
@@ -36,22 +36,32 @@ exports.CreateBrand = async (req, res) => {
     res.send(brands);
 }
 
+// exports.GetBrand = async (req, res) => {
+//     const brand = await Brand.findByIdAndUpdate(
+//         req.params.id,
+//         {
+//             name: req.body.name,
+//             icon: req.body.icon || Brand.icon,
+//             color: req.body.color,
+//         },
+//         { new: true }
+//     )
+
+//     if (!brands)
+//         return res.status(400).send('the brands cannot be created!')
+
+//     res.send(brands);
+// }
+
 exports.GetBrand = async (req, res) => {
-    const brand = await Brand.findByIdAndUpdate(
-        req.params.id,
-        {
-            name: req.body.name,
-            icon: req.body.icon || Brand.icon,
-            color: req.body.color,
-        },
-        { new: true }
-    )
+  const brand = await brand.find();
 
-    if (!brands)
-        return res.status(400).send('the brands cannot be created!')
-
-    res.send(brands);
+  if (!brand) {
+      req.status(500).json({ success: false })
+  }
+  res.status(200).send(brand);
 }
+
 
 exports.UpdateBrand = async (req, res) => {
     try {
@@ -62,13 +72,13 @@ exports.UpdateBrand = async (req, res) => {
         });
       }
   
-      const brands = await Brand.findByIdAndUpdate(req.params.id, req.body, {
+      const brands = await brand.findByIdAndUpdate(req.params.id, req.body, {
         new: true,
         runValidators: true,
       });
       res
         .status(201)
-        .json({ success: true, message: "Brand is Updated", brands: brands });
+        .json({ success: true, message: "Brand Updated", brands: brands });
     } catch (err) {
       console.log(err);
     }
@@ -86,17 +96,3 @@ exports.UpdateBrand = async (req, res) => {
       console.log(err);
     }
   };
-
-//   exports.deleteBrand = async (req, res) => {
-//     Brand.findByIdAndRemove(req.params.id).then(brand => {
-//         if (brand) {
-//             return res.status(200).json({ success: true, message: 'Brand is deleted!' })
-//         } else {
-//             return res.status(404).json({ success: false, message: "Brand not found!" })
-//         }
-//     }).catch(err => {
-//         return res.status(500).json({ success: false, error: err })
-//     })
-// }
-
-  

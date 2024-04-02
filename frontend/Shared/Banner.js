@@ -9,9 +9,9 @@ const Banner = () => {
 
     useEffect(() => {
         setBannerData([
-            "https://images.vexels.com/media/users/3/126443/preview2/ff9af1e1edfa2c4a46c43b0c2040ce52-macbook-pro-touch-bar-banner.jpg",
-            "https://pbs.twimg.com/media/D7P_yLdX4AAvJWO.jpg",
-            "https://www.yardproduct.com/blog/wp-content/uploads/2016/01/gardening-banner.jpg",
+            "https://i.postimg.cc/rpmN8QNr/first.jpg",
+            "https://i.postimg.cc/GhxFGZMD/second.jpg",
+            "https://i.postimg.cc/mD7zRHJ9/third.jpg",
         ]);
 
         return () => {
