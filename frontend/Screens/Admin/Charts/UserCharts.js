@@ -10,6 +10,8 @@ import React from 'react'
     ScrollView
 } from "react-native";
 import ProductChart from "../Charts/ProductChart"
+import SalesChart from "../Charts/SalesChart"
+import Stocks from "../Charts/Stocks"
 
   
 
@@ -21,6 +23,12 @@ const UserCharts = () => {
     <View>
         <View>
             <ProductChart/>
+        </View>
+        <View>
+          <SalesChart/>
+        </View>
+        <View>
+          <Stocks />
         </View>
         
 </View>
