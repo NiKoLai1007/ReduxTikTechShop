@@ -47,13 +47,13 @@ const ReviewList = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Reviews</Text>
+      <Text style={[styles.title, { color: 'white' }]}>Reviews</Text>
       {reviews.map((review) => (
         <View key={review.id} style={styles.reviewContainer}>
           <View style={styles.ratingContainer}>
             {renderStars(review.rating)}
           </View>
-          <Text style={styles.comment}>{review.comment}</Text>
+          <Text style={[styles.comment, { color: 'white' }]}>{review.comment}</Text>
         </View>
       ))}
       <TextInput
@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginBottom: 10,
+    backgroundColor: 'white',
     paddingLeft: 5,
   },
   button: {

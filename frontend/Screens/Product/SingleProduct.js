@@ -42,7 +42,7 @@ const SingleProduct = ({ route }) => {
     // };
 
     return (
-        <Center flexGrow={1}>
+        <Center style={styles.pageBackground} flexGrow={1}> =
             <ScrollView style={{ marginBottom: 80, padding: 5 }}>
                 <View>
                     <Image
@@ -54,17 +54,20 @@ const SingleProduct = ({ route }) => {
                     />
                 </View> 
                 <View style={styles.contentContainer}>
-                    <Heading style={styles.contentHeader} size='xl'>{item.name}</Heading>
-                    <Text style={styles.contentText}>{item.brand}</Text>
+                <Heading style={[styles.contentHeader, { color: 'white' }]} size='xl'>{item.name}</Heading>
+
+
+                    <Text style={[styles.contentText, { color: 'white' }]}>{item.brand}</Text>
                 </View>
                 <View style={styles.availabilityContainer}>
                     <View style={styles.availability}>
-                        <Text style={{ marginRight: 10 }}>
-                            Availability: {availabilityText}
-                        </Text>
+                    <Text style={{ marginRight: 10 }}>
+                        <Text style={[styles.contentText, { color: 'white' }]}></Text>
+                        <Text style={{ color: 'white' }}>Availability: {availabilityText}</Text>
+                    </Text>
                         {availability}
                     </View>
-                    <Text>{item.description}</Text>
+                    <Text style={[styles.contentText, { color: 'white' }]}>{item.description}</Text>
                 </View>
                 <TouchableOpacity style={styles.addButtonSmall} onPress={handleAddToCart}>
                     <Text style={styles.addButtonText}>Add to Cart</Text>
@@ -87,7 +90,8 @@ const styles = StyleSheet.create({
     contentContainer: {
         marginTop: 20,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        color: 'white',
     },
     contentHeader: {
         fontWeight: 'bold',
@@ -119,7 +123,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         fontSize: 18
-    }
+    },
+    pageBackground: {
+        backgroundColor: '#000000'
+    },
 });
 
 export default SingleProduct;

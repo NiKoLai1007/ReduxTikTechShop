@@ -9,8 +9,8 @@ const Banner = () => {
 
     useEffect(() => {
         setBannerData([
-            "https://i.postimg.cc/rpmN8QNr/first.jpg",
-            "https://i.postimg.cc/mD7zRHJ9/third.jpg",
+            "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg",
+            "https://i.ytimg.com/vi/IRiFZFTZME0/maxresdefault.jpg",
             "https://i.postimg.cc/GhxFGZMD/second.jpg",
            
         ]);
@@ -52,7 +52,7 @@ const Banner = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "gainsboro",
+        backgroundColor: "#000000",
     },
     swiper: {
         width: width,
@@ -60,11 +60,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     imageBanner: {
-        height: width / 2,
-        width: width - 40,
+        flex: 1,
+        width: undefined,
+        height: undefined,
         borderRadius: 10,
         marginHorizontal: 20,
     },
+    
 });
 
 export default Banner;

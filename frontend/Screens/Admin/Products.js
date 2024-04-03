@@ -123,54 +123,59 @@ const Products = (props) => {
         <Box>
             <ScrollView horizontal={true}>
                 <View style={styles.buttonContainer}>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("Orders")}
-                    >
-                        <Icon name="shopping-bag" size={18} color="white" />
-                        <Text style={styles.buttonText}>Orders</Text>
-                    </EasyButton>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("ProductForm")}
-                    >
-                        <Icon name="plus" size={18} color="white" />
-                        <Text style={styles.buttonText}>Products</Text>
-                    </EasyButton>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("Categories")}
-                    >
-                        <Icon name="plus" size={18} color="white" />
-                        <Text style={styles.buttonText}>Categories</Text>
-                    </EasyButton>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("Brands")}
-                    >
-                        <Icon name="plus" size={18} color="white" />
-                        <Text style={styles.buttonText}>Brands</Text>
-                    </EasyButton>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("Users")}
-                    >
-                        <Icon name="user" size={18} color="white" />
-                        <Text style={styles.buttonText}>Users</Text>
-                    </EasyButton>
-                    <EasyButton
-                        secondary
-                        medium
-                        onPress={() => navigation.navigate("UserCharts")}
-                    >
-                        <Icon name="bar-chart" size={18} color="white" />
-                        <Text style={styles.buttonText}>Charts</Text>
-                    </EasyButton>
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("Orders")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="shopping-bag" size={30} color="white" />
+                    <Text style={styles.buttonText}>Orders</Text>
+                </EasyButton>
+
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("ProductForm")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="plus" size={18} color="white" />
+                    <Text style={styles.buttonText}>Products</Text>
+                </EasyButton>
+
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("Categories")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="plus" size={18} color="white" />
+                    <Text style={styles.buttonText}>Categories</Text>
+                </EasyButton>
+
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("Brands")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="plus" size={18} color="white" />
+                    <Text style={styles.buttonText}>Brands</Text>
+                </EasyButton>
+
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("Users")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="user" size={18} color="white" />
+                    <Text style={styles.buttonText}>Users</Text>
+                </EasyButton>
+
+                <EasyButton
+                    medium
+                    onPress={() => navigation.navigate("UserCharts")}
+                    style={styles.blackButton}
+                >
+                    <Icon name="bar-chart" size={18} color="white" />
+                    <Text style={styles.buttonText}>Charts</Text>
+                </EasyButton>
                 </View>
             </ScrollView>
             <Searchbar width="80%"
@@ -226,6 +231,9 @@ const styles = StyleSheet.create({
         margin: 20,
         alignSelf: 'center',
         flexDirection: 'row'
+    },
+    blackButton: {
+        backgroundColor: 'black', // Set the background color to black
     },
     buttonText: {
         marginLeft: 4,

@@ -8,7 +8,7 @@ const CategoryFilter = (props) => {
         <ScrollView
             bounces={true}
             horizontal={true}
-            style={{ backgroundColor: "#f2f2f2" }}
+            style={{ backgroundColor: "#000000" }}
         >
             <VStack space={4} divider={<Divider />} w="100%">
                 <HStack justifyContent="space-between">
@@ -18,9 +18,9 @@ const CategoryFilter = (props) => {
                             props.categoryFilter('all'), props.setActive(-1)
                         }}
                     >
-                        <Badge style={[styles.center, { margin: 4 },
+                        <Badge style={[styles.center, { margin: 10, height: 50, },
                         props.active === -1 ? styles.active : styles.inactive]} colorScheme="info" >
-                            <Text style={{ color: 'black' }}>all</Text>
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>All</Text>
                         </Badge>
                     </TouchableOpacity>
                     {props.categories.map((item) => (
@@ -33,17 +33,16 @@ const CategoryFilter = (props) => {
                         >
                             <Badge
                                 style={[styles.center,
-                                { margin: 5 },
+                                { margin: 10, height: 50 },
                                 props.active == props.categories.indexOf(item) ? styles.active : styles.inactive
                                 ]}
                             >
-                                <Text style={{ color: 'white' }}>{item.name}</Text>
+                                <Text Textstyle={{ color: 'black' }}>{item.name}</Text>
                             </Badge>
                         </TouchableOpacity>
                     ))}
                 </HStack>
             </VStack>
-
         </ScrollView>
 
 
@@ -55,11 +54,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
+    badge: {
+        margin: 5,
+        height: 100, // Increased padding horizontally
+        width: 80,
+        paddingVertical: 15, // Increased padding vertically
+        borderRadius: 40,
+        marginBottom: 30,
+    },
     active: {
-        backgroundColor: '#03bafc'
+        backgroundColor: '#F6BE00'
     },
     inactive: {
-        backgroundColor: '#a0e1eb'
+        backgroundColor: '#F6BE00'
     }
 })
 

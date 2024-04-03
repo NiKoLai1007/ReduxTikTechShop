@@ -29,7 +29,7 @@ const sendOrderNotification = async (email, order) => {
     };
     // const productText = products.map(product => `- ${product.name} x${product.quantity}`).join('\n');
 
-    mailOptions.text = `Thank you for ordering from TickTech! \n\nThis is the list of items you've ordered: Payment Method: ${order.paymentMethod}\nOrder Total:₱ ${order.totalPrice}`;
+    mailOptions.text = `Thank you for ordering from TikTech! \n\nThis is the list of items you've ordered: Payment Method: ${order.paymentMethod}\nOrder Total:₱ ${order.totalPrice}`;
 
     //send the email
     try {
