@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 
-const EasyButton = styled.TouchableOpacity`
+const LoginButton = styled.TouchableOpacity`
     flex-direction: row;
-    border-radius: 100px;
-    padding: 15px;
+    border-radius: 3px;
+    padding: 10px;
     margin: 5px;
     justify-content: center;
     background: transparent;
@@ -49,14 +49,6 @@ const EasyButton = styled.TouchableOpacity`
             width: 40px;
         `
     }
-
-    ${(props) =>
-        props.login &&
-        css`
-            background: #C49D19;
-            width: 350px;
-        `
-    }
 `;
 
-export default EasyButton
+export default LoginButton

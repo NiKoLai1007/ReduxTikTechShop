@@ -1,4 +1,5 @@
 import React from 'react';
+import { Height } from 'react';
 import { ScrollView, Dimensions, StyleSheet, Text } from 'react-native';
 
 var { width } = Dimensions.get('window');
@@ -14,11 +15,13 @@ const FormContainer = ({children, title}) => {
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 30,
-        marginBottom: 400,
+        marginTop: -80,
+        // marginBottom: 0,
         width: width,
+        height: 800,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'white',
     },
     title: {
         fontSize: 30,

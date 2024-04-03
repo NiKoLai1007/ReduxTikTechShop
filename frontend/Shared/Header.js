@@ -8,7 +8,7 @@ const Header = () => {
             <Image
                 source={require("../assets/logo.png")}
                 resizeMode="contain"
-                style={{ height: 50 }}
+                style={{ height: 100 }}
             />
 
         </SafeAreaView>
@@ -19,11 +19,13 @@ const Header = () => {
 const styles = StyleSheet.create({
     header: {
         width: "100%",
+        height: 100,
         flexDirection: 'row',
         alignContent: "center",
         justifyContent: "center",
         padding: 20,
-        marginTop: 80,
+        marginTop: -100,
+        marginBottom: -10,
     }
 })
 

@@ -9,9 +9,9 @@ const Banner = () => {
 
     useEffect(() => {
         setBannerData([
-            "https://i.natgeofe.com/n/548467d8-c5f1-4551-9f58-6817a8d2c45e/NationalGeographic_2572187_square.jpg",
-            "https://i.ytimg.com/vi/IRiFZFTZME0/maxresdefault.jpg",
-            "https://i.postimg.cc/GhxFGZMD/second.jpg",
+            "https://i.imgur.com/JI59lDy.jpg",
+            "https://i.imgur.com/xFSMncu.jpg",
+            "https://i.imgur.com/3t8Todo.jpg",
            
         ]);
     

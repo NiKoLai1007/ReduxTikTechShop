@@ -8,7 +8,12 @@ import Error from '../../Shared/Error'
 import AuthGlobal from '../../Context/Store/AuthGlobal'
 import { loginUser } from '../../Context/Actions/Auth.actions'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import LoginButton from "../../Shared/StyledComponents/EasyButton";
 import EasyButton from "../../Shared/StyledComponents/EasyButton";
+
+import InputLog from '../../Shared/Form/InputLog';
+import Header from "../../Shared/Header";
+
 const Login = (props) => {
   const context = useContext(AuthGlobal)
   const navigation = useNavigation()
@@ -42,52 +47,70 @@ const Login = (props) => {
       });
     });
   });
+
+  const handleCreateAccount = () => {
+    navigation.navigate("Register");
+  };
+
   return (
-    <FormContainer>
-      <Input
-        placeholder={"Enter email"}
+    <FormContainer style={{ backgroundColor: '#FFFFFF' }}>
+      <Header />
+      <InputLog
+        placeholder="Email"
+        style={{ marginLeft: 20 }}
         name={"email"}
         id={"email"}
         value={email}
         onChangeText={(text) => setEmail(text.toLowerCase())}
       />
-      <Input
-        placeholder={"Enter Password"}
+      <InputLog
+        placeholder={"Password"}
         name={"password"}
         id={"password"}
         secureTextEntry={true}
         value={password}
         onChangeText={(text) => setPassword(text)}
       />
+      <Text style={{ color: "#C49D19", marginTop: 10, marginBottom: 10, marginLeft: 200 }}>Forgot your password?</Text>
       <View style={styles.buttonGroup}>
         {error ? <Error message={error} /> : null}
         {/* <Button variant={"ghost"} onPress={() => handleSubmit()}>Login</Button> */}
-        <EasyButton
+        <LoginButton
           large
-          primary
+          login
           onPress={() => handleSubmit()}
-        ><Text style={{ color: "white" }}>Login</Text>
-        </EasyButton>
+        ><Text style={{ color: "white", fontWeight: 'bold' }}>Login</Text>
+        </LoginButton>
       </View>
       <View style={[{ marginTop: 40 }, styles.buttonGroup]}>
-        <Text style={styles.middleText}>Dont' Have an Account yet?</Text>
+        {/* <Text style={styles.middleText}>Dont' Have an Account yet?</Text> */}
         {/* <Button variant={"ghost"} onPress={() => navigation.navigate("Register")} > Register</Button> */}
-        <EasyButton
+        {/* <EasyButton
           large
           secondary
           onPress={() => navigation.navigate("Register")}
         >
           <Text style={{ color: "white" }}>Register</Text>
-        </EasyButton>
+        </EasyButton> */}
       </View>
       <View style={[{ marginTop: 20 }, styles.buttonGroup]}>
-      <EasyButton large
+        {/* <EasyButton large
           secondary
           onPress={() => navigation.navigate("Google")}>
-          <Text style={{ color: "white" }}>Sign in with Google</Text>
+          // <Text style={{ color: "white" }}>Sign in with Google</Text> 
 
-        </EasyButton>
+        </EasyButton> */}
       </View>
+      <Text style={{ color: "black", marginTop: 10, marginBottom: 10, marginLeft: 10 }}>Don't have an account?</Text>
+      <Text
+        onPress={handleCreateAccount}
+        style={[
+          styles.registerButton,
+          { color: "#C49D19", fontWeight: "bold", letterSpacing: 0, marginTop: 30 }
+        ]}
+      >
+        Create new account
+      </Text>
     </FormContainer>
   )
 }
@@ -99,6 +122,9 @@ const styles = StyleSheet.create({
   middleText: {
     marginBottom: 20,
     alignSelf: "center",
+  },
+  pageBackground: {
+    backgroundColor: 'black',
   },
 });
 export default Login;

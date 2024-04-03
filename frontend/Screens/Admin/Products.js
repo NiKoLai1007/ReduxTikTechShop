@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
     listHeader: {
         flexDirection: 'row',
         padding: 5,
-        backgroundColor: 'gainsboro'
+        backgroundColor: 'white'
     },
     headerItem: {
         margin: 3,

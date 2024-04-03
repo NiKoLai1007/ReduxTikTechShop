@@ -122,7 +122,7 @@ const ProductContainer = () => {
                     <View>
                         <Banner />
                     </View>
-                    <View >
+                    <View>
                         <CategoryFilter
                             categories={categories}
                             categoryFilter={changeCtg}
