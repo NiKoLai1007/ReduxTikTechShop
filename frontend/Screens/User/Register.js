@@ -3,6 +3,9 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, Linking } 
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useNavigation } from '@react-navigation/native';
 import { Button, Center } from "native-base";
+import LoginButton from "../../Shared/StyledComponents/EasyButton";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
+
 import FormContainer from "../../Shared/Form/FormContainer";
 import Input from "../../Shared/Form/Input";
 import Error from "../../Shared/Error";
@@ -148,7 +151,7 @@ const Register = (props) => {
 
     const getLocation = () => {
         // ?z=15&q='restaurants
-        const {coords} = location
+        const { coords } = location
         const url = `geo:${coords.latitude},${coords.longtitude}?z=21&q='restaurants'`;
         Linking.openURL(url);
     }
@@ -177,7 +180,7 @@ const Register = (props) => {
             extraHeight={200}
             enableOnAndroid={true}
         >
-            <FormContainer title={"Register"}>
+            <FormContainer>
                 {launchCam ?
                     <Center width={width} >
                         <View style={styles.cameraContainer}>
@@ -242,22 +245,24 @@ const Register = (props) => {
                 <View style={styles.buttonGroup}>
                     {error ? <Error message={error} /> : null}
                 </View>
-                <View>
-                    <Button variant={"ghost"} onPress={() => register()}>
-                        <Text style={{ color: "blue" }}>Register</Text>
+                <View style={{ flexDirection: 'row' }}>
+                    <LoginButton
+                        large
+                        register
+                        onPress={() => register()}
+                    ><Text style={{ color: "white", fontWeight: 'bold' }}>Register</Text>
+                    </LoginButton>
+                    <Button variant={"ghost"} onPress={() => navigation.navigate("Login")}>
+                        <Text style={{ color: "black" }}>Back to Login</Text>
                     </Button>
                 </View>
                 <View>
-                    <Button variant={"ghost"}
-                        onPress={() => navigation.navigate("Login")}
-                    >
-                        <Text style={{ color: "blue" }}>Back to Login</Text>
-                    </Button>
-                    <Button variant={"ghost"}
+
+                    {/* <Button variant={"ghost"}
                         onPress={getLocation}
                     >
                         <Text style={{ color: "blue" }}>location</Text>
-                    </Button>
+                    </Button> */}
                 </View>
             </FormContainer>
         </KeyboardAwareScrollView>
@@ -285,7 +290,9 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         borderRadius: 100,
         borderColor: "#E0E0E0",
-        elevation: 10
+        elevation: 10,
+        marginTop: 50,
+        marginBottom: 30
     },
     image: {
         width: "100%",
