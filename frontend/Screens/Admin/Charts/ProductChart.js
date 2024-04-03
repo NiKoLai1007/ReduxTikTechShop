@@ -23,7 +23,6 @@ const chartConfig = {
 
 const ProductChart = () => {
   const [productData, setProductData] = useState([]);
-  const [categoryColors, setCategoryColors] = useState(['#FF5733', '#FFBD33', '#33FF57', '#33D1FF', '#B833FF', '#FF33E9']);
 
   useEffect(() => {
     fetchProductData();
@@ -31,12 +30,12 @@ const ProductChart = () => {
 
   const fetchProductData = async () => {
     try {
-      const response = await axios.get(`${baseURL}products/get/category`);
-      const products = response.data.categories;
+      const response = await axios.get(`${baseURL}products`);
+      const products = response.data;
 
       const categoryCountMap = {};
       products.forEach((product) => {
-        const categoryName = product.name;
+        const categoryName = product.category.name;
         if (categoryCountMap[categoryName]) {
           categoryCountMap[categoryName]++;
         } else {
@@ -45,10 +44,11 @@ const ProductChart = () => {
       });
 
       const categories = Object.keys(categoryCountMap);
+      const categoryColors = ['#FF5733', '#FFBD33', '#33FF57', '#33D1FF', '#B833FF', '#FF33E9'];
       const categoryCountArray = categories.map((category, index) => ({
         name: category,
         count: categoryCountMap[category],
-        color: categoryColors[index % categoryColors.length]
+        color: categoryColors[index % categoryColors.length],
       }));
 
       setProductData(categoryCountArray);
