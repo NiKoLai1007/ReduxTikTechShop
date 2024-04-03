@@ -65,6 +65,30 @@ const EasyButton = styled.TouchableOpacity`
             width: 100px;
         `
     }
+
+    ${(props) =>
+        props.profile &&
+        css`
+            background: #C49D19;
+            width: 130px;
+        `
+    }
+
+    ${(props) =>
+        props.profile1 &&
+        css`
+            background: #C49D19;
+            width: 130px;
+        `
+    }
+
+    ${(props) =>
+        props.dangerProf &&
+        css`
+          background: #f40105;
+          margin-left: 95px; 
+          margin-top: -70px; 
+        `}
 `;
 
 export default EasyButton

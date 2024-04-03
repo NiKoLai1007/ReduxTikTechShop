@@ -8,7 +8,9 @@ import baseURL from "../../assets/common/baseurl"
 import AuthGlobal from "../../Context/Store/AuthGlobal"
 import { logoutUser } from "../../Context/Actions/Auth.actions"
 import OrderCard from '../../Shared/OrderCard';
-import EasyButton from '../../Shared/StyledComponents/EasyButton';
+import LoginButton from "../../Shared/StyledComponents/LoginButton";
+import EasyButton from "../../Shared/StyledComponents/EasyButton";
+import Divider from '../../Shared/StyledComponents/Divider';
 
 const UserProfile = (props) => {
   const context = useContext(AuthGlobal)
@@ -51,30 +53,49 @@ const UserProfile = (props) => {
     }, [context.stateUser.isAuthenticated]))
 
   return (
-    <Container style={styles.container}>
-      <ScrollView contentContainerStyle={styles.subContainer}>
+    <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.subContainer} showsVerticalScrollIndicator={false}>
         {userProfile && userProfile.image ? (
-          <View style={{ flexDirection: 'row', alignItems: 'center', marginLeft: 10}}>
+          <View style={{ flexDirection: 'flex', alignItems: 'center', marginLeft: 10 }}>
+            {/* Display the user's name */}
+            <Text style={styles.profileName}>{userProfile.name}</Text>
+            {/* Display the user's image */}
             <Image
               source={{ uri: userProfile.image }}
               style={styles.profileImage}
             />
-            <Text style={{ fontSize: 30, marginLeft: 10 }}>
-              {userProfile.name}
-            </Text>
           </View>
         ) : null}
-        <View style={{ marginTop: 20 }}>
-          <Button title={"Profile"} onPress={() => navigation.navigate('ProfileInfo')} />
-        </View>
-        <View style={{ marginTop: 20 }}>
-          <Button title= "Update" onPress= {() => navigation.navigate('UserUpdate')} />
+        <View style={{ flexDirection: 'row' }}>
+          <EasyButton
+            large
+            profile
+            onPress={() => navigation.navigate('ProfileInfo')}
+          ><Text style={{ color: "white", fontWeight: 'bold' }}>Info</Text>
+          </EasyButton>
+          <EasyButton
+            large
+            profile1
+            onPress={() => navigation.navigate('UserUpdate')}
+          ><Text style={{ color: "white", fontWeight: 'bold' }}>Update Profile</Text>
+          </EasyButton>
         </View>
         <View style={{ marginTop: 80 }}>
-          <Button title={"Sign Out"} onPress={() => [
+          {/* <Button title={"Sign Out"} onPress={() => [
             AsyncStorage.removeItem("jwt"),
             logoutUser(context.dispatch)
-          ]} />
+          ]} /> */}
+          <EasyButton
+            large
+            dangerProf
+            onPress={() => [
+              AsyncStorage.removeItem("jwt"),
+              logoutUser(context.dispatch)
+            ]}
+          >
+            <Text style={{ color: 'white', fontWeight: 'bold' }}>Sign Out</Text>
+          </EasyButton>
+          <Divider />
           <View style={styles.order}>
             <Text style={{ fontSize: 20 }}>My Orders</Text>
             <View>
@@ -91,24 +112,36 @@ const UserProfile = (props) => {
           </View>
         </View>
       </ScrollView>
-    </Container>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    width: 415,
+
+  },
+  profileName: {
+    fontSize: 30,
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    color: '#C49D19',
+    marginLeft: -160,
+    marginBottom: 30,
   },
   subContainer: {
     alignItems: "center",
-    marginTop: 60
+    marginTop: 60,
   },
   profileImage: {
-    width: 100, // Adjust the size as needed
-    height: 100,
+    width: 300, // Adjust the size as needed
+    height: 300,
     borderRadius: 50, // Creates a circle
     marginBottom: 20,
+    // marginLeft: 50,
   },
   order: {
     marginTop: 20,
