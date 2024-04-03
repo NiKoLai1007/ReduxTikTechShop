@@ -4,10 +4,10 @@
     "slug": "scplay",
     "version": "1.0.0",
     "orientation": "default",
-    "icon": "./assets/TikTech.png",
+    "icon": "./assets/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/TikTech.png",
+      "image": "./assets/loggo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
