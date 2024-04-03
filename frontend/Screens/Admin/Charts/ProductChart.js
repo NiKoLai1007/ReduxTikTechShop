@@ -8,8 +8,7 @@ const chartConfig = {
   backgroundColor: "#e26a00",
   backgroundGradientFrom: "#fb8c00",
   backgroundGradientTo: "#ffa726",
-  decimalPlaces: 2,
-  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`, // Use white color with opacity
   labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
   style: {
     borderRadius: 16
@@ -33,25 +32,28 @@ const ProductChart = () => {
       const response = await axios.get(`${baseURL}products`);
       const products = response.data;
 
-      const categoryCountMap = {};
+      const categoryProductMap = {};
+
+      // Group products by category
       products.forEach((product) => {
         const categoryName = product.category.name;
-        if (categoryCountMap[categoryName]) {
-          categoryCountMap[categoryName]++;
-        } else {
-          categoryCountMap[categoryName] = 1;
+        if (!categoryProductMap[categoryName]) {
+          categoryProductMap[categoryName] = [];
         }
+        categoryProductMap[categoryName].push(product);
       });
 
-      const categories = Object.keys(categoryCountMap);
+      // Define static colors for categories
       const categoryColors = ['#FF5733', '#FFBD33', '#33FF57', '#33D1FF', '#B833FF', '#FF33E9'];
-      const categoryCountArray = categories.map((category, index) => ({
+
+      // Convert categoryProductMap to an array of objects with static colors
+      const categoryDataArray = Object.entries(categoryProductMap).map(([category, products], index) => ({
         name: category,
-        count: categoryCountMap[category],
-        color: categoryColors[index % categoryColors.length],
+        count: products.length,
+        color: categoryColors[index % categoryColors.length] // Assign static colors based on index
       }));
 
-      setProductData(categoryCountArray);
+      setProductData(categoryDataArray);
     } catch (error) {
       console.error('Error fetching product data:', error);
     }
